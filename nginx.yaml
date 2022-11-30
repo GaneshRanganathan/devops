@@ -1,0 +1,17 @@
+resources:
+- name: concourse-examples
+  type: git
+  source: {uri: "https://github.com/GaneshRanganathan/devops.git"}
+
+jobs:
+- name: nginx
+  plan:
+  # there will be an artifact named
+  # "concourse-examples" available in the job plan
+  - get: concourse-nginx
+  - task: nginx-upgrade
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source: {repository: nginx}
